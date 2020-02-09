@@ -1,0 +1,46 @@
+﻿@model association.Models.FacturesGeneree
+
+@{
+    ViewData["Title"] = "Supprimer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Supprimer</h2>
+
+<h3>êtes-vous sûr de vouloir supprimer?</h3>
+<div>
+    <h4>FacturesGeneree</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFactures)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateFactures)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateGeneration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateGeneration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FactureDe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FactureDe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Association.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Association.Nom)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="FacturesGenereeID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Retour</a>
+    </form>
+</div>

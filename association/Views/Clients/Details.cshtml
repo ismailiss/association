@@ -1,0 +1,125 @@
+﻿@model association.Models.Client
+
+@{
+    ViewData["Title"] = "Détails";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <h4>Citoyen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CIN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CIN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+        <dt>
+            Association
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Association.Nom)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ClientID">Edit</a> |
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+<hr />
+<p>
+    <a asp-controller="CompteursEau" asp-action="Create" asp-route-id="@Model.ClientID">Créer Nouveau</a>
+
+
+</p>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Compteurs.FirstOrDefault().Numero)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Compteurs.FirstOrDefault().Emplacement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Compteurs.FirstOrDefault().DateDebut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Compteurs.FirstOrDefault().DateFin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Compteurs.FirstOrDefault().Actif)
+                </th>
+
+                <th>
+                    Citoyen
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Compteurs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emplacement)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateDebut)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFin)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actif)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client.NomPrenom)
+
+                    </td>
+                    <td>
+                        <a asp-controller="CompteursEau" asp-action="Edit" asp-route-id="@item.CompteurEauID">Modifier</a> |
+                        <a asp-controller="CompteursEau" asp-action="Details" asp-route-id="@item.CompteurEauID">Détails</a> |
+                        <a asp-controller="CompteursEau" asp-action="Delete" asp-route-id="@item.CompteurEauID">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
