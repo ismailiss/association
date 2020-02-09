@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="C:\Users\ismail\source\repos\association\association\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\" />
-  <dbfullsql path="C:\Users\ismail\source\repos\association\association\obj\Release\netcoreapp2.1\win-x64\PubTmp\EFSQLScripts\association.Data.ApplicationDbContext.sql" />
-  <dbfullsql path="C:\Users\ismail\source\repos\association\association\obj\Release\netcoreapp2.1\win-x64\PubTmp\EFSQLScripts\association.Services.MyDbContext.sql" />
-</sitemanifest>
