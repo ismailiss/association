@@ -1,0 +1,54 @@
+﻿@model IEnumerable<association.Models.FacturesGeneree>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFactures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateGeneration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FactureDe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Association)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFactures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateGeneration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FactureDe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Association.Nom)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FacturesGenereeID">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.FacturesGenereeID">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.FacturesGenereeID">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

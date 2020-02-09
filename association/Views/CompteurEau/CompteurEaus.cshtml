@@ -1,0 +1,66 @@
+﻿@model IEnumerable<association.Models.CompteurEau>
+<div  class="container">
+    <a asp-action="FormCompteurEau">Nouveau Compteur</a>
+
+
+</div>
+<div class="col-md-10 col-md-offset-1 col-xs-12">
+    <div class="panel panel-primary"></div>
+    <div class="panel panel-heading">Liste des compteurs </div>
+    <div class="panel panel-body">
+        <div class="container">
+            <form method="get" asp-action="Index">
+                <label>Mot Clé:</label>
+                <input type="text" name="motCle"/>
+                <button type="submit" class="btn btn-primary">Chercher</button>
+            </form>
+        </div>
+        <table class="table">
+            <tr>
+                <th>Numero</th>
+                <th>Emplacement</th>
+                <th>Date debut</th>
+                <th>Date fin</th>
+            </tr>
+            @{
+                foreach (var p in Model)
+                {
+
+                    <tr>
+                        <th>@p.Numero</th>
+                        <th>@p.Emplacement</th>
+                        <th>@p.DateDebut</th>
+                        <th>@p.DateFin</th>
+                        <th>@p.Client.Nom</th>
+                        <th>
+                            <a asp-action="Edit" asp-route-id="@p.CompteurEauID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@p.CompteurEauID">Détails</a> |
+                            <a asp-action="Delete" asp-route-id="@p.CompteurEauID">Supprimer</a>
+                        <th>
+                            
+                     </tr>
+                }
+            }
+        </table>
+        <div>
+            <ul class="nav nav-pills">
+              @{ 
+                  for (int i = 0; i < ViewBag.totalPages; i++)
+                  {
+                      string className = "";
+                      if (i == ViewBag.currentPage)
+                      {
+                          className = "active";
+
+                      }
+                      <li class="@className">
+                            <a asp-action ="Index" asp-route-page="@i" asp-route-motCle="@ViewBag.motCle">@i</a>
+                         </li>
+                  }
+              }
+            </ul>
+
+        </div>
+    </div>
+
+</div>

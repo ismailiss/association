@@ -1,0 +1,74 @@
+@model association.Models.CompteurEau
+
+@{
+    ViewData["Title"] = "Créer";
+}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<h2>Créer</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Compteurs</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+        <div class="form-group">
+            <label asp-for="Numero" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Emplacement" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Emplacement" class="form-control" />
+                <span asp-validation-for="Emplacement" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateDebut" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DateDebut" class="form-control" type="datetime" />
+                <span asp-validation-for="DateDebut" class="text-danger" />
+        </div>
+            </div>
+        <div class="form-group">
+            <label asp-for="DateFin" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DateFin" class="form-control" type="datetime"/>
+                <span asp-validation-for="DateFin" class="text-danger" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="Actif" />
+                    <label asp-for="Actif"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ClientID" class="col-md-2 control-label">Client</label>
+            <div class="col-md-10">
+                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.Client"></select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Créer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <div class="col-md-offset-2 col-md-10">
+        <a asp-action="Index">Retour à la liste</a>
+    </div>
+</div>
+
