@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using association.Services;
 using association.Models;
 using Microsoft.EntityFrameworkCore;
+using association.Data;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,8 +15,8 @@ namespace association.Controllers
 
     public class CompteurEauController : Controller
     {
-        public MyDbContext dbContext { get; set; }
-        public CompteurEauController(MyDbContext db)
+        public ApplicationDbContext dbContext { get; set; }
+        public CompteurEauController(ApplicationDbContext db)
         {
             this.dbContext = db;
         }

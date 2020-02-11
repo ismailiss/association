@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using association.Models;
 using association.Services;
 using Microsoft.AspNetCore.Authorization;
+using association.Data;
 
 namespace association.Controllers
 {
@@ -15,9 +16,9 @@ namespace association.Controllers
 
     public class TarifsController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TarifsController(MyDbContext context)
+        public TarifsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,7 +26,7 @@ namespace association.Controllers
         // GET: Tarifs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tarif.ToListAsync());
+            return View(await _context.Tarifs.ToListAsync());
         }
 
         // GET: Tarifs/Details/5
@@ -36,7 +37,7 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarif
+            var tarif = await _context.Tarifs
                 .FirstOrDefaultAsync(m => m.TarifID == id);
             if (tarif == null)
             {
@@ -76,7 +77,7 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarif.FindAsync(id);
+            var tarif = await _context.Tarifs.FindAsync(id);
             if (tarif == null)
             {
                 return NotFound();
@@ -127,7 +128,7 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarif
+            var tarif = await _context.Tarifs
                 .FirstOrDefaultAsync(m => m.TarifID == id);
             if (tarif == null)
             {
@@ -142,15 +143,15 @@ namespace association.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tarif = await _context.Tarif.FindAsync(id);
-            _context.Tarif.Remove(tarif);
+            var tarif = await _context.Tarifs.FindAsync(id);
+            _context.Tarifs.Remove(tarif);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TarifExists(int id)
         {
-            return _context.Tarif.Any(e => e.TarifID == id);
+            return _context.Tarifs.Any(e => e.TarifID == id);
         }
     }
 }

@@ -31,9 +31,10 @@ namespace association.Services
             //ISMAOUI\SQLEXPRESS
 
 
-            optionsBuilder.UseSqlServer("Data Source=SQL6006.site4now.net;Initial Catalog=DB_A46566_ismail12345;User Id=DB_A46566_ismail12345_admin;Password=OkeoPXQO1;");
+            //optionsBuilder.UseSqlServer("Data Source=SQL6006.site4now.net;Initial Catalog=DB_A46566_ismail12345;User Id=DB_A46566_ismail12345_admin;Password=OkeoPXQO1;");
 
             //optionsBuilder.UseSqlServer( "Server=.\\SQLEXPRESS;Database=asso1;Trusted_Connection=True;");
+            optionsBuilder.UseMySQL("server=localhost;database=asso;user=root;password=ismail10");
         }
 
 

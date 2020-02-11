@@ -8,15 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using association.Models;
 using association.Services;
 using Microsoft.AspNetCore.Authorization;
+using association.Data;
 
 namespace association.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class FacturesGenereesController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public FacturesGenereesController(MyDbContext context)
+        public FacturesGenereesController(ApplicationDbContext context)
         {
             _context = context;
         }

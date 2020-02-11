@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using association.Models.asso_config;
 using association.Services;
 using Microsoft.AspNetCore.Authorization;
+using association.Data;
 
 namespace association.Controllers
 {
@@ -15,9 +16,9 @@ namespace association.Controllers
 
     public class ApplicationRolesController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ApplicationRolesController(MyDbContext context)
+        public ApplicationRolesController(ApplicationDbContext context)
         {
             _context = context;
         }

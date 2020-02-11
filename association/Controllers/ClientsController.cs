@@ -10,6 +10,7 @@ using association.Services;
 using Microsoft.AspNetCore.Authorization;
 using association.Models.asso_config;
 using Microsoft.AspNetCore.Identity;
+using association.Data;
 
 namespace association.Controllers
 {
@@ -17,11 +18,11 @@ namespace association.Controllers
 
     public class ClientsController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public ClientsController(MyDbContext context,UserManager<ApplicationUser> userManager)
+        public ClientsController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
              _userManager = userManager;

@@ -10,6 +10,7 @@ using association.Services;
 using Microsoft.AspNetCore.Authorization;
 using association.Models.asso_config;
 using Microsoft.AspNetCore.Identity;
+using association.Data;
 
 namespace association.Controllers
 {
@@ -17,10 +18,10 @@ namespace association.Controllers
 
     public class CompteursEauController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CompteursEauController(MyDbContext context, UserManager<ApplicationUser> userManager)
+        public CompteursEauController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
