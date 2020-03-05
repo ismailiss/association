@@ -64,10 +64,10 @@
 
         <div class="form-group">
             @* value="@( (@Model.ValeurCompteur - @Model.ValeurCompteurPrecedente)* 0.007)  *@
-            <label asp-for="Montant" class="col-md-2 control-label" asp-is-invariant="true" ></label>
+            <label asp-for="Montant" class="col-md-2 control-label" asp-is-invariant="true"></label>
             <div class="col-md-10">
-                <input asp-for="Montant" class="form-control" id="Montant"  asp-is-invariant="true" asp-is >
-         
+                <input asp-for="Montant" class="form-control" id="Montant" asp-is-invariant="true" asp-is>
+
                 <span asp-validation-for="Montant" class="text-danger" id="Montant" />
             </div>
         </div>
@@ -96,9 +96,7 @@
         document.getElementById('Consomation').value = document.getElementById('ValeurCompteur').value - document.getElementById('ValeurCompteurPrecedente').value;
         document.getElementById('Montant').value = document.getElementById('Consomation').value * document.getElementById('TarifID').textContent / 1000;
     }
-
 </script>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

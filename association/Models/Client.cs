@@ -13,7 +13,6 @@ namespace association.Models
         public int ClientID { get; set; }
         [StringLength(30)]
         public string Nom { get; set; }
-        [StringLength(30)]
         [Display(Name = "Prénom")]
 
         public string Prenom { get; set; }
@@ -21,6 +20,19 @@ namespace association.Models
         public string NomPrenom {
             get {
                 return Nom + " " + Prenom; }
+        }
+      //  [Display(Name = "النسب")]
+            public string NomAr { get; set; }
+       // [Display(Name = "الاسم")]
+        
+        public string PrenomAr { get; set; }
+        [Display(Name = "المواطن")]
+        public string NomPrenomAr
+        {
+            get
+            {
+                return NomAr + " " + PrenomAr;
+            }
         }
         [StringLength(10)]
         public string CIN { get; set; }

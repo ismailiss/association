@@ -4,31 +4,8 @@
 /WebAPI/appsettings.json
 /WebAPI/Properties
 
-/WebApiSpecific/appsettings.Development.json
-/WebApiSpecific/nlog.config
-/WebApiSpecific/appsettings.json
-/WebApiSpecific/Properties
 
-/Entities/appsettings.json
-
-/OcelotExterne/appsettings.json
-/OcelotExterne/appsettings.Development.json
-/OcelotExterne/configuration.json
-/OcelotExterne/configuration.Development.json
-/OcelotExterne/Properties
-
-/OcelotInterne/appsettings.json
-/OcelotInterne/appsettings.Development.json
-/OcelotInterne/configuration.json
-/OcelotInterne/configuration.Development.json
-/OcelotInterne/Properties
-
-
-/AuthServer/appsettings.Development.json
-/AuthServer/nlog.config
-/AuthServer/appsettings.json
-
-Assets/MyFiles/
+wwwroot
 
 Migrations
 Excel

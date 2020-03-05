@@ -31,6 +31,9 @@
                 <tr>
 
                     <th>
+                        N°
+                    </th>
+                    <th>
                         Citoyen
                     </th>
                     <th>
@@ -63,6 +66,9 @@
                 @foreach (var item in Model)
                 {
                 <tr class=" @( @item.isPayee is true ? "bg-success" : "bg-danger")">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FactureID)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CompteurEau.Client.NomPrenom)
                     </td>

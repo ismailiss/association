@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Créer</h2>
 
-<h4>FacturesGeneree</h4>
+<h4>Factures Generee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,12 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DateFactures" class="control-label"></label>
-                <input asp-for="DateFactures" class="form-control" type="datetime" />
+                <input asp-for="DateFactures" class="form-control" type="date" />
                 <span asp-validation-for="DateFactures" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateGeneration" class="control-label"></label>
-                <input asp-for="DateGeneration" class="form-control" type="datetime" />
+                <input asp-for="DateGeneration" class="form-control" type="date" />
               
                 <span asp-validation-for="DateGeneration" class="text-danger"></span>
             </div>
@@ -31,23 +31,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="AssociationID" class="control-label">Association</label>
-                <select asp-for="AssociationID" class="form-control" asp-items="ViewBag.Nom"></select>
+                <select asp-for="AssociationID" class="form-control" asp-items="ViewBag.Association"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Enregistrer" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 <script>
-    $(document).ready(function () {
-        document.getElementById('DateGeneration').value = new Date();
+    //$(document).ready(function () {
+    //    document.getElementById('DateGeneration').value = new Date();
 
-    });
+    //});
 </script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

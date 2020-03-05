@@ -13,22 +13,22 @@ namespace association.Controllers
 {
     [Authorize(Roles = "Admin")]
 
-    public class TarifsController : Controller
+    public class DouarsController : Controller
     {
         private readonly MyDbContext _context;
 
-        public TarifsController(MyDbContext context)
+        public DouarsController(MyDbContext context)
         {
             _context = context;
         }
 
-        // GET: Tarifs
+        // GET: Douars
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tarifs.ToListAsync());
+            return View(await _context.Douars.ToListAsync());
         }
 
-        // GET: Tarifs/Details/5
+        // GET: Douars/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,39 +36,39 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarifs
-                .FirstOrDefaultAsync(m => m.TarifID == id);
-            if (tarif == null)
+            var Douar = await _context.Douars
+                .FirstOrDefaultAsync(m => m.DouarID == id);
+            if (Douar == null)
             {
                 return NotFound();
             }
 
-            return View(tarif);
+            return View(Douar);
         }
 
-        // GET: Tarifs/Create
+        // GET: Douars/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tarifs/Create
+        // POST: Douars/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TarifID,Montant,DateApplication,DateFinApplication")] Tarif tarif)
+        public async Task<IActionResult> Create([Bind("DouarID,Montant,DateApplication,DateFinApplication")] Douar Douar)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tarif);
+                _context.Add(Douar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tarif);
+            return View(Douar);
         }
 
-        // GET: Tarifs/Edit/5
+        // GET: Douars/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,22 +76,22 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarifs.FindAsync(id);
-            if (tarif == null)
+            var Douar = await _context.Douars.FindAsync(id);
+            if (Douar == null)
             {
                 return NotFound();
             }
-            return View(tarif);
+            return View(Douar);
         }
 
-        // POST: Tarifs/Edit/5
+        // POST: Douars/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TarifID,Montant,DateApplication,DateFinApplication")] Tarif tarif)
+        public async Task<IActionResult> Edit(int id, [Bind("DouarID,Montant,DateApplication,DateFinApplication")] Douar Douar)
         {
-            if (id != tarif.TarifID)
+            if (id != Douar.DouarID)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace association.Controllers
             {
                 try
                 {
-                    _context.Update(tarif);
+                    _context.Update(Douar);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TarifExists(tarif.TarifID))
+                    if (!DouarExists(Douar.DouarID))
                     {
                         return NotFound();
                     }
@@ -116,10 +116,10 @@ namespace association.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tarif);
+            return View(Douar);
         }
 
-        // GET: Tarifs/Delete/5
+        // GET: Douars/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,30 +127,30 @@ namespace association.Controllers
                 return NotFound();
             }
 
-            var tarif = await _context.Tarifs
-                .FirstOrDefaultAsync(m => m.TarifID == id);
-            if (tarif == null)
+            var Douar = await _context.Douars
+                .FirstOrDefaultAsync(m => m.DouarID == id);
+            if (Douar == null)
             {
                 return NotFound();
             }
 
-            return View(tarif);
+            return View(Douar);
         }
 
-        // POST: Tarifs/Delete/5
+        // POST: Douars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tarif = await _context.Tarifs.FindAsync(id);
-            _context.Tarifs.Remove(tarif);
+            var Douar = await _context.Douars.FindAsync(id);
+            _context.Douars.Remove(Douar);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TarifExists(int id)
+        private bool DouarExists(int id)
         {
-            return _context.Tarifs.Any(e => e.TarifID == id);
+            return _context.Douars.Any(e => e.DouarID == id);
         }
     }
 }

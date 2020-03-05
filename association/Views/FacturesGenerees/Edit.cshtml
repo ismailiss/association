@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Modifier</h2>
 
 <h4>FacturesGeneree</h4>
 <hr />
@@ -16,12 +16,12 @@
             <input type="hidden" asp-for="FacturesGenereeID" />
             <div class="form-group">
                 <label asp-for="DateFactures" class="control-label"></label>
-                <input asp-for="DateFactures" class="form-control" />
+                <input asp-for="DateFactures" class="form-control" type="date"/>
                 <span asp-validation-for="DateFactures" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateGeneration" class="control-label"></label>
-                <input asp-for="DateGeneration" class="form-control"  />
+                <input asp-for="DateGeneration" class="form-control" type="date" />
                 <span asp-validation-for="DateGeneration" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,14 +35,14 @@
                 <span asp-validation-for="AssociationID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Enregistrer" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

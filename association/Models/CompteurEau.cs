@@ -30,6 +30,10 @@ namespace association.Models
         [ForeignKey("ClientID")]
         public virtual Client Client { get; set; }
 
+        //public int DouarID { get; set; }
+        //[ForeignKey("DouarID")]
+        //public virtual Douar Douar { get; set; }
+
         public virtual ICollection<Facture> Factures { get; set; }
 
 

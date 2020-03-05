@@ -11,7 +11,6 @@ using association.Models.asso_config;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using association.Data;
 
 namespace association.Controllers
 {
@@ -19,9 +18,9 @@ namespace association.Controllers
     //[Authorize(Policy = "RequireAdminRole")]
     public class ApplicationUsers : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MyDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public ApplicationUsers(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public ApplicationUsers(UserManager<ApplicationUser> userManager, MyDbContext context)
         {
             _userManager = userManager;
             _context = context;

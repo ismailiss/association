@@ -12,7 +12,6 @@ using association.Models;
 using association.Models.AccountViewModels;
 using association.Services;
 using association.Models.asso_config;
-using association.Data;
 
 namespace association.Controllers
 {
@@ -24,14 +23,14 @@ namespace association.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly MyDbContext _context;
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
-            ApplicationDbContext context)
+            MyDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;

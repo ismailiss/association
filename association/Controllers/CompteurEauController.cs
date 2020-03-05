@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using association.Services;
 using association.Models;
 using Microsoft.EntityFrameworkCore;
-using association.Data;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,8 +14,8 @@ namespace association.Controllers
 
     public class CompteurEauController : Controller
     {
-        public ApplicationDbContext dbContext { get; set; }
-        public CompteurEauController(ApplicationDbContext db)
+        public MyDbContext dbContext { get; set; }
+        public CompteurEauController(MyDbContext db)
         {
             this.dbContext = db;
         }
@@ -27,7 +26,9 @@ namespace association.Controllers
             int position = page * size;
             IEnumerable<CompteurEau> CompteurEaus = dbContext.CompteurEaus.
                 Where(p=>p.Numero.Contains(motCle))
-                .Skip(position).Take(size).Include(c=>c.Client).ToList();
+                .Skip(position).Take(size).Include(c=>c.Client).
+                //Include(c => c.Douar).
+                ToList();
             ViewBag.currentPage = page;
             int totalPages;
             int nbCompteurs = dbContext.CompteurEaus.
@@ -46,6 +47,9 @@ namespace association.Controllers
             CompteurEau c = new CompteurEau();
             IEnumerable<Client> clts = dbContext.Clients.ToList();
             ViewBag.clients = clts;
+
+            IEnumerable<Douar> Douars = dbContext.Douars.ToList();
+            ViewBag.douars = Douars;
             return View("FormCompteurEau",c );
         }
 
@@ -60,6 +64,9 @@ namespace association.Controllers
             }
             IEnumerable<Client> clts = dbContext.Clients.ToList();
             ViewBag.clients = clts;
+
+            IEnumerable<Douar> Douars = dbContext.Douars.ToList();
+            ViewBag.douars = Douars;
             return View("FormCompteurEau", c);
         }
 
@@ -76,6 +83,9 @@ namespace association.Controllers
             }
             IEnumerable<Client> clts = dbContext.Clients.ToList();
             ViewBag.clients = clts;
+
+            IEnumerable<Douar> Douars = dbContext.Douars.ToList();
+            ViewBag.douars = Douars;
             return View("FormCompteurEau", c);
         }
 

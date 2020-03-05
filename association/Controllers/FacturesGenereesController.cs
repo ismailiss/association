@@ -8,16 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using association.Models;
 using association.Services;
 using Microsoft.AspNetCore.Authorization;
-using association.Data;
 
 namespace association.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class FacturesGenereesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MyDbContext _context;
 
-        public FacturesGenereesController(ApplicationDbContext context)
+        public FacturesGenereesController(MyDbContext context)
         {
             _context = context;
         }
@@ -52,7 +51,8 @@ namespace association.Controllers
         // GET: FacturesGenerees/Create
         public IActionResult Create()
         {
-            ViewData["AssociationID"] = new SelectList(_context.Associations, "AssociationID", "Nom");
+            ViewData["Association"] = new SelectList(_context.Associations, "AssociationID", "Nom");
+
             var model = new FacturesGeneree();
             model.DateFactures  = DateTime.Now;
             model.FactureDe = DateTime.Now;
@@ -111,7 +111,7 @@ namespace association.Controllers
             {
                 return NotFound();
             }
-            ViewData["AssociationID"] = new SelectList(_context.Associations, "AssociationID", "AssociationID", facturesGeneree.AssociationID);
+            ViewData["Association"] = new SelectList(_context.Associations, "AssociationID", "AssociationID", facturesGeneree.AssociationID);
             return View(facturesGeneree);
         }
 

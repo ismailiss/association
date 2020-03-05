@@ -19,6 +19,7 @@ namespace association.Services
         public DbSet<Facture> Factures { get; set; }
         public DbSet<Association> Associations { get; set; }
         public DbSet<Tarif> Tarifs { get; set; }
+        public DbSet<Douar> Douars { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -33,19 +34,11 @@ namespace association.Services
 
             //optionsBuilder.UseSqlServer("Data Source=SQL6006.site4now.net;Initial Catalog=DB_A46566_ismail12345;User Id=DB_A46566_ismail12345_admin;Password=OkeoPXQO1;");
 
-            //optionsBuilder.UseSqlServer( "Server=.\\SQLEXPRESS;Database=asso1;Trusted_Connection=True;");
-            optionsBuilder.UseMySQL("server=localhost;database=asso;user=root;password=ismail10");
+            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=asso1;Trusted_Connection=True;");
         }
 
 
-
-
-
-        public DbSet<association.Models.Tarif> Tarif { get; set; }
-
-
-
-
+        //public DbSet<association.Models.Tarif> Tarifs { get; set; }
 
         public DbSet<association.Models.FacturesGeneree> FacturesGeneree { get; set; }
     }

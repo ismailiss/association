@@ -10,7 +10,6 @@ using association.Services;
 using Microsoft.AspNetCore.Authorization;
 using association.Models.asso_config;
 using Microsoft.AspNetCore.Identity;
-using association.Data;
 
 namespace association.Controllers
 {
@@ -18,11 +17,11 @@ namespace association.Controllers
 
     public class ClientsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MyDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public ClientsController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
+        public ClientsController(MyDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
              _userManager = userManager;
@@ -38,7 +37,7 @@ namespace association.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myDbContext = User.IsInRole("Admin") ?
                 _context.Clients.
-                Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle))
+                Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle) || p.NomAr.Contains(motCle) || p.PrenomAr.Contains(motCle))
                 .Skip(position).Take(size).Include(c => c.Association).OrderBy(c => c.Nom) :
 
                 _context.Clients.
@@ -106,7 +105,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientID,Nom,Prenom,CIN,Adresse,Telephone,AssociationID")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +153,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientID,Nom,Prenom,CIN,Adresse,Telephone,AssociationID")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID")] Client client)
         {
             if (id != client.ClientID)
             {

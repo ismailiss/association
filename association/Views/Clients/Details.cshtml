@@ -23,6 +23,19 @@
             @Html.DisplayFor(model => model.Prenom)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.NomAr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomAr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrenomAr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrenomAr)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.CIN)
         </dt>
         <dd>
@@ -49,7 +62,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ClientID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ClientID">Modifier</a> |
     <a asp-action="Index">Retour à la liste</a>
 </div>
 <hr />

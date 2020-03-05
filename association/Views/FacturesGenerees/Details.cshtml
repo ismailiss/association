@@ -8,7 +8,7 @@
 <h2>Détails</h2>
 
 <div>
-    <h4>FacturesGeneree</h4>
+    <h4>Factures Generee</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,9 +51,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Factures.FirstOrDefault().CompteurEau.Client)
-                </th>
+        
                 <th>
                     @Html.DisplayNameFor(model => model.Factures.FirstOrDefault().CompteurEau.CompteurEauID)
                 </th>
@@ -82,9 +80,7 @@
             @foreach (var item in Model.Factures)
             {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompteurEau.Client.NomPrenom)
-                </td>
+      
                 <td>
                     @Html.DisplayFor(modelItem => item.CompteurEauID)
                 </td>
