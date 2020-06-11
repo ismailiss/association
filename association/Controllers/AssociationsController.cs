@@ -57,7 +57,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AssociationID,Nom,Adresse,Telephone")] Association association)
+        public async Task<IActionResult> Create([Bind("AssociationID,Nom,NomAr,Adresse,Telephone")] Association association)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AssociationID,Nom,Adresse,Telephone")] Association association)
+        public async Task<IActionResult> Edit(int id, [Bind("AssociationID,Nom,NomAr,Adresse,Telephone")] Association association)
         {
             if (id != association.AssociationID)
             {

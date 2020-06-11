@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,13 +16,11 @@ using Microsoft.AspNetCore.Identity;
 //using iTextSharp.text.pdf;
 using System.Text;
 using System.IO;
-//using iTextSharp.text;
-//using iTextSharp.text.html.simpleparser;
-//using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Http;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Http;
+using System.Runtime.InteropServices;
 
 namespace association.Controllers
 {
@@ -242,7 +240,7 @@ namespace association.Controllers
             return _context.Factures.Any(e => e.FactureID == id);
         }
         // GET: Factures/Edit/5
-        public async Task<IActionResult> ImprimerRecu(int? id)
+        public async Task<IActionResult> Print(int id)
         {
             if (id == null)
             {
@@ -250,75 +248,58 @@ namespace association.Controllers
             }
 
             var facture = await _context.Factures.Include(f => f.CompteurEau).Include(f => f.CompteurEau.Client).Include(f => f.Tarif).SingleOrDefaultAsync(m => m.FactureID == id);
-            //if (facture == null)
-            //{
-            //    return NotFound();
-            //}
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
-
-            //ViewData["CompteurEau"] =
-            //    User.IsInRole("Admin") ? new SelectList(_context.CompteurEaus, "CompteurEauID", "Numero") :
-            //    new SelectList(_context.CompteurEaus.
-            //    Where(p => p.Client.AssociationID == user.AssociationID), "CompteurEauID", "Numero");
-            //int i = _context.CompteurEaus.Count();
-            //ViewData["TarifID"] = new SelectList(_context.Tarifs, "TarifID", "Montant", facture.TarifID);
+            if (facture == null)
+            {
+                return NotFound();
+              }
+                //var user = await _userManager.GetUserAsync(HttpContext.User);
             
-            //StringBuilder sb = new StringBuilder();
+
+            MemoryStream msOutput = new MemoryStream();
+
+            // step 1: creation of a document-object
+            Document document = new Document(PageSize.A4, 30, 30, 30, 30);
+
+            // step 2:
+            // we create a writer that listens to the document
+            // and directs a XML-stream to a file
+            PdfWriter writer = PdfWriter.GetInstance(document, msOutput);
+
+            // step 3: we create a worker parse the document
+            HtmlWorker worker = new HtmlWorker(document);
+
+            // step 4: we open document and start the worker on the document
+            document.Open();
+            worker.StartDocument();
+
+            // select the font properties
+            string fontpath = Environment.GetEnvironmentVariable("SystemRoot") +
+            "\\fonts\\tahoma.ttf";
+            BaseFont basefont = BaseFont.CreateFont
+            (fontpath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font tahomaFont = new Font(basefont, 10, Font.NORMAL, BaseColor.Blue);
+            //set the direction of text.
+            ColumnText ct = new ColumnText(writer.DirectContent);
+            ct.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+            //set the position of text in page.
+            ct.SetSimpleColumn(100, 100, 500, 800, 24, Element.ALIGN_RIGHT);
+            var assoChunk = new Chunk(facture.CompteurEau.Client.Association.Nom, tahomaFont);
+            var chunk = new Chunk(" لورانس العرب ", tahomaFont);
+            var chunk2 = new Chunk("consomation "+ facture.Consomation);
+            ct.AddElement(chunk);
+
+            ct.AddElement(chunk2);
+            ct.Go();
+
+            // step 6: close the document and the worker
+            worker.EndDocument();
+            worker.Close();
+            document.Close();
+            msOutput.Seek(0, 0);
+
+                return new FileStreamResult(msOutput, "application/pdf");
 
 
-
-            //sb.Append("< !DOCTYPE html >");  
-            //sb.Append(" < html >");
-
-
-            //sb.Append("   < head >");
-
-            //sb.Append("< title > Coucou </ title >");
-
-            //sb.Append("   </ head >");
-
-            //sb.Append("< body >");
-            //sb.Append("Cette page est une");
-            //sb.Append(" page toute simple");
-            //sb.Append("</ body >");
-            //sb.Append("</ html >");
-            //StringReader sr = new StringReader(sb.ToString());
-
-            //Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            //HtmlWorker htmlparser = new HtmlWorker(pdfDoc);
-            //using (MemoryStream memoryStream = new MemoryStream())
-            //{
-            //    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
-            //    pdfDoc.Open();
-
-            //    htmlparser.Parse(sr);
-            //    pdfDoc.Close();
-
-            //    byte[] bytes = memoryStream.ToArray();
-            //    memoryStream.Close();
-            //}
-
-            //// Clears all content output from the buffer stream                 
-            //Response.Clear();
-            //// Gets or sets the HTTP MIME type of the output stream.
-            //Response.ContentType = "application/pdf";
-            //// Adds an HTTP header to the output stream
-            //Response.Headers("Content-Disposition", "attachment; filename=Invoice.pdf");
-
-            ////Gets or sets a value indicating whether to buffer output and send it after
-            //// the complete response is finished processing.
-            //Response.buffer = true;
-            //// Sets the Cache-Control header to one of the values of System.Web.HttpCacheability.
-            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //// Writes a string of binary characters to the HTTP output stream. it write the generated bytes .
-            //Response.BinaryWrite(bytes);
-            //// Sends all currently buffered output to the client, stops execution of the
-            //// page, and raises the System.Web.HttpApplication.EndRequest event.
-
-            //Response.End();
-            //// Closes the socket connection to a client. it is a necessary step as you must close the response after doing work.its best approach.
-            //Response.Close();
-            return View(facture);
         }
 
     }

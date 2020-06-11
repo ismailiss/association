@@ -63,7 +63,7 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Montant" class="col-md-2 control-label"></label>
+            <label class="col-md-2 control-label">Montant</label>
             <div class="col-md-10">
                 <input asp-for="Montant" class="form-control" />
                 <span asp-validation-for="Montant" class="text-danger" />
@@ -90,9 +90,9 @@
 </div>
 <script>
     function myFunction() {
-        document.getElementById('Consomation').value = document.getElementById('ValeurCompteur').value - document.getElementById('ValeurCompteurPrecedente').value;
-        document.getElementById('Montant').value = document.getElementById('Consomation').value * document.getElementById('TarifID').textContent / 1000;
-}
+                document.getElementById('Consomation').value = document.getElementById('ValeurCompteur').value - document.getElementById('ValeurCompteurPrecedente').value;
+            document.getElementById('Montant').value = document.getElementById('Consomation').value * document.getElementById('TarifID').textContent / 1000;
+        }
 </script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

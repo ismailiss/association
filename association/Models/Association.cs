@@ -11,9 +11,11 @@ namespace association.Models
     {
         [Key]
         public int AssociationID { get; set; }
-        [StringLength(30)]
+        [StringLength(255)]
         public string Nom { get; set; }
-        
+        [StringLength(255)]
+        public string NomAr { get; set; }
+
         [StringLength(255)]
         public string Adresse { get; set; }
 

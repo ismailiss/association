@@ -72,6 +72,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="DouarID" class="col-md-2 control-label">Douar</label>
+                <div class="col-md-10">
+                    <select asp-for="DouarID" class="form-control" asp-items="ViewBag.Douar"></select>
+                    <span asp-validation-for="DouarID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Enregistrer" class="btn btn-default" />
 

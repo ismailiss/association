@@ -95,8 +95,11 @@ namespace association.Controllers
             ViewData["Association"] =
                 User.IsInRole("Admin") ? new SelectList(_context.Associations, "AssociationID", "Nom") :
                 new SelectList(_context.Associations.
-                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom")
-                ;
+                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom")    ;
+            ViewData["Douar"] = new SelectList(_context.Douars, "AssociationID", "NomFr");
+           //User.IsInRole("Admin") ? new SelectList(_context.Douars, "AssociationID", "NomFr") :
+           //new SelectList(_context.Associations.
+           //Where(p => p.AssociationID == user.AssociationID), "DouarID", "Nom");
             return View();
         }
 
@@ -105,7 +108,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID,DouarID")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -119,8 +122,9 @@ namespace association.Controllers
             ViewData["Association"] =
                 User.IsInRole("Admin") ? new SelectList(_context.Associations, "AssociationID", "Nom") :
                 new SelectList(_context.Associations.
-                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom")
-                ;
+                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom") ;
+            ViewData["Douar"] = new SelectList(_context.Douars, "DouarID", "NomFr");
+
             return View(client);
         }
 
@@ -145,6 +149,8 @@ namespace association.Controllers
                 new SelectList(_context.Associations.
                 Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom")
                 ;
+            ViewData["Douar"] = new SelectList(_context.Douars, "DouarID", "NomFr");
+
             return View(client);
         }
 
@@ -153,7 +159,7 @@ namespace association.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ClientID,Nom,Prenom,NomAr,PrenomAr,CIN,Adresse,Telephone,AssociationID,DouarID")] Client client)
         {
             if (id != client.ClientID)
             {
@@ -186,8 +192,9 @@ namespace association.Controllers
             ViewData["Association"] =
                 User.IsInRole("Admin") ? new SelectList(_context.Associations, "AssociationID", "Nom") :
                 new SelectList(_context.Associations.
-                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom")
-                ;
+                Where(p => p.AssociationID == user.AssociationID), "AssociationID", "Nom");
+            ViewData["Douar"] = new SelectList(_context.Douars, "DouarID", "NomFr");
+
             return View(client);
         }
         [Authorize(Roles = "Admin")]

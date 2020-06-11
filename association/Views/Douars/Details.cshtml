@@ -1,0 +1,31 @@
+﻿@model association.Models.Douar
+
+@{
+    ViewData["Title"] = "Détails";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <h4>Association</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomFr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomFr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomAr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomAr)
+        </dd>
+   
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DouarID">Edit</a> |
+    <a asp-action="Index">Retour à la liste</a>
+</div>

@@ -45,6 +45,8 @@ namespace association.Models
         public int AssociationID { get; set; }
         [ForeignKey("AssociationID")]
         public virtual Association Association { get; set; }
-
+        public int DouarID { get; set; }
+        [ForeignKey("DouarnID")]
+        public virtual Douar Douar { get; set; }
     }
 }

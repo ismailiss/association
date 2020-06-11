@@ -40,12 +40,12 @@ namespace association
                 });
 
 
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<MyDbContext>(options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddIdentity<ApplicationUser, IdentityRole>()
-                  .AddEntityFrameworkStores<ApplicationDbContext>()
+                  .AddEntityFrameworkStores<MyDbContext>()
                   .AddDefaultTokenProviders();
 
             services.AddDbContext<MyDbContext>();
@@ -119,7 +119,7 @@ namespace association
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 
-            //CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -127,6 +127,22 @@ namespace association
             //association 
             // Association association = await Association.FindByEmaic("jignesh@gmail.com");
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = { "Admin", "User", "HR" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: Question 1
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
             ApplicationUser user1 = await UserManager.FindByEmailAsync("ismailelaissaoui@gmail.com");
 
             if (user1 == null)
@@ -140,22 +156,6 @@ namespace association
             }
             await UserManager.AddToRoleAsync(user1, "Admin");
 
-
-            //initializing custom roles 
-            //var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            //    string[] roleNames = { "Admin", "User", "HR" };
-            //    IdentityResult roleResult;
-
-            //    foreach (var roleName in roleNames)
-            //    {
-            //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
-            //        if (!roleExist)
-            //        {
-            //            //create the roles and seed them to the database: Question 1
-            //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-            //        }
-            //    }
 
             //ApplicationUser user = await UserManager.FindByEmailAsync("jignesh@gmail.com");
 
