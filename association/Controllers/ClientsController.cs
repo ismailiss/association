@@ -38,10 +38,10 @@ namespace association.Controllers
             var myDbContext = User.IsInRole("Admin") ?
                 _context.Clients.
                 Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle) || p.NomAr.Contains(motCle) || p.PrenomAr.Contains(motCle))
-                .Skip(position).Take(size).Include(c => c.Association).OrderBy(c => c.Nom) :
+                .Include(c => c.Douar).Skip(position).Take(size).Include(c => c.Douar).Include(c => c.Association).OrderBy(c => c.Nom) :
 
                 _context.Clients.
-                Where(p => p.AssociationID == user.AssociationID).
+                Where(p => p.AssociationID == user.AssociationID).Include(c => c.Douar).
                 Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle))
                 .Skip(position).Take(size).Include(c => c.Association).OrderBy(c => c.Nom);
 
@@ -51,18 +51,19 @@ namespace association.Controllers
                 User.IsInRole("Admin") ?
                 _context.Clients.
                 Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle))
-                .Include(c => c.Association).OrderBy(c => c.Nom).Count() :
+                .Include(c => c.Association).Include(c => c.Douar).OrderBy(c => c.Nom).Count() :
 
                 _context.Clients.
                 Where(p => p.AssociationID == user.AssociationID).
                 Where(p => p.Nom.Contains(motCle) || p.Prenom.Contains(motCle) || p.CIN.Contains(motCle))
-                .Include(c => c.Association).OrderBy(c => c.Nom).Count();
+                .Include(c => c.Association).Include(c => c.Douar).OrderBy(c => c.Nom).Count();
 
             if ((nbCompteurs % size) == 0) totalPages = nbCompteurs / size;
             else totalPages = 1 + (nbCompteurs / size);
             int aa =myDbContext.Count();
             ViewBag.totalPages = totalPages;
             ViewBag.motCle = motCle;
+            var dzd = await myDbContext.ToListAsync();
             return View(await myDbContext.ToListAsync()); 
 
            
@@ -77,7 +78,7 @@ namespace association.Controllers
             }
 
             var client = await _context.Clients
-                .Include(c => c.Association).Include(c => c.Compteurs)
+                .Include(c => c.Association).Include(c => c.Compteurs).Include(c => c.Douar)
                 .FirstOrDefaultAsync(m => m.ClientID == id);
             if (client == null)
             {

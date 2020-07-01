@@ -242,63 +242,89 @@ namespace association.Controllers
         // GET: Factures/Edit/5
         public async Task<IActionResult> Print(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            try {
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var facture = await _context.Factures.Include(f => f.CompteurEau).Include(f => f.CompteurEau.Client).Include(f => f.Tarif).SingleOrDefaultAsync(m => m.FactureID == id);
-            if (facture == null)
-            {
-                return NotFound();
-              }
+                var facture = await _context.Factures.Include(f => f.CompteurEau).Include(f => f.CompteurEau.Client).Include(f => f.CompteurEau.Client.Association)
+                   .Include(f => f.CompteurEau.Client.Douar).Include(f => f.Tarif).SingleOrDefaultAsync(m => m.FactureID == id);
+                if (facture == null)
+                {
+                    return NotFound();
+                }
                 //var user = await _userManager.GetUserAsync(HttpContext.User);
-            
 
-            MemoryStream msOutput = new MemoryStream();
 
-            // step 1: creation of a document-object
-            Document document = new Document(PageSize.A4, 30, 30, 30, 30);
+                MemoryStream msOutput = new MemoryStream();
 
-            // step 2:
-            // we create a writer that listens to the document
-            // and directs a XML-stream to a file
-            PdfWriter writer = PdfWriter.GetInstance(document, msOutput);
+                // step 1: creation of a document-object
+                Document document = new Document(PageSize.A4, 30, 30, 30, 30);
 
-            // step 3: we create a worker parse the document
-            HtmlWorker worker = new HtmlWorker(document);
+                // step 2:
+                // we create a writer that listens to the document
+                // and directs a XML-stream to a file
+                PdfWriter writer = PdfWriter.GetInstance(document, msOutput);
 
-            // step 4: we open document and start the worker on the document
-            document.Open();
-            worker.StartDocument();
+                // step 3: we create a worker parse the document
+                //     HtmlWorker worker = new HtmlWorker(document);
 
-            // select the font properties
-            string fontpath = Environment.GetEnvironmentVariable("SystemRoot") +
-            "\\fonts\\tahoma.ttf";
-            BaseFont basefont = BaseFont.CreateFont
-            (fontpath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font tahomaFont = new Font(basefont, 10, Font.NORMAL, BaseColor.Blue);
-            //set the direction of text.
-            ColumnText ct = new ColumnText(writer.DirectContent);
-            ct.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-            //set the position of text in page.
-            ct.SetSimpleColumn(100, 100, 500, 800, 24, Element.ALIGN_RIGHT);
-            var assoChunk = new Chunk(facture.CompteurEau.Client.Association.Nom, tahomaFont);
-            var chunk = new Chunk(" لورانس العرب ", tahomaFont);
-            var chunk2 = new Chunk("consomation "+ facture.Consomation);
-            ct.AddElement(chunk);
+                // step 4: we open document and start the worker on the document
+                document.Open();
+                //worker.StartDocument();
+                document.Add(new Paragraph("Hello World"));
 
-            ct.AddElement(chunk2);
-            ct.Go();
+                //// select the font properties
+                string fontpath = Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\tahoma.ttf";
+                BaseFont basefont = BaseFont.CreateFont
+                (fontpath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Font tahomaFont = new Font(basefont, 12, Font.NORMAL, BaseColor.Black);
+                //set the direction of text.
+                ColumnText ct = new ColumnText(writer.DirectContent);
+                ct.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                //set the position of text in page.
 
-            // step 6: close the document and the worker
-            worker.EndDocument();
-            worker.Close();
-            document.Close();
-            msOutput.Seek(0, 0);
+                ct.SetSimpleColumn( 300, 830, 580, 300, 15, Element.ALIGN_MIDDLE);
+                var assoChunk = new Chunk(facture.CompteurEau.Client.Association.NomAr, tahomaFont);
+                //    var chunk2 = new Chunk("consomation " + facture.Consomation);
+                ct.AddElement(assoChunk);
+                var daouarchunk = new Chunk(facture.CompteurEau.Client.Douar.NomAr, tahomaFont);
+                //    var chunk2 = new Chunk("consomation " + facture.Consomation);
+                ct.AddElement(daouarchunk);
+                var chunk = new Chunk("إشعار بالأداء", tahomaFont);
+                //    var chunk2 = new Chunk("consomation " + facture.Consomation);
+                ct.AddElement(chunk);
+                //
+                //  ct.AddElement(chunk2);
+                ct.Go();
+
+
+                //ColumnText ct1 = new ColumnText(writer.DirectContent);
+                //ct1.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                ////set the position of text in page.
+
+                //ct1.SetSimpleColumn(300, 630, 580, 100, 15, Element.ALIGN_RIGHT);
+                //var assoChunk1 = new Chunk(facture.CompteurEau.Client.Association.Nom, tahomaFont);
+                //var chunk2 = new Chunk(" سيجمع المؤتمر بين خبراء من كافة قطاعات الصناعة على الشبكة العالمية انترنيت ويونيكود، حيث ستتم، على الصعيدين الدولي والمحلي على حد سواء مناقشة سبل استخدام يونكود في النظم القائمة وفيما يخص التطبيقات الحاسوبية، الخطوط، تصميم النصوص والحوسبة متعددة اللغا", tahomaFont);
+                ////    var chunk2 = new Chunk("consomation " + facture.Consomation);
+                //ct1.AddElement(chunk);
+                ////
+                ////  ct.AddElement(chunk2);
+                //ct1.Go();
+                // step 6: close the document and the worker
+                //worker.EndDocument();
+                //worker.Close();
+                document.Close();
+                msOutput.Seek(0, 0);
 
                 return new FileStreamResult(msOutput, "application/pdf");
-
+            
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
         }
 
